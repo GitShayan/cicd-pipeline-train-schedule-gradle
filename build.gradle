@@ -1,6 +1,14 @@
+// This application is built in node.js, and there is a plugin for it in Gradle that does
+// a lot of the work for us as far as dealing with node.js builds. We're calling in that
+// plugin here
+
 plugins {
   id "com.moowork.node" version "1.2.0"
 }
+
+// We've also got to confgure the plugin a little bit. This line will instruct the node plugin
+// to download and install node.js and npm locally, for this particular project. It ensures that
+// those are installed during the build, but not system-wide, just within this directory.
 
 node {
   download = true
