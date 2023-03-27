@@ -1,64 +1,40 @@
 plugins {
-
   id "com.moowork.node" version "1.2.0"
-
 }
-
-
 
 node {
-
   download = true
-
 }
-
 
 
 task build
 
-
-
-    task zip(type: Zip) {
-
-        from ('.') {
-
-		    include "*"
-
-		    include "bin/**"
-
-		    include "data/**"
-
-		    include "node_modules/**"
-
-		    include "public/**"
-
-		    include "routes/**"
-
-		    include "views/**"
-
-	    }
-
-	    destinationDir(file("dist"))
-
-	    baseName "trainSchedule"
-
-    }
-
-    build.dependsOn zip
-
-    zip.dependsOn npm_build
-
-
-
+task zip(type: Zip) {
+  from ('.') {
+  include "*"
+  include "bin/**"
+  include "data/**"
+  include "node_modules/**"
+  include "public/**"
+  include "routes/**"
+  include "views/**"
+  }
+  destinationDir(file("dist"))
+  baseName "trainSchedule"
+}
+// All npm command can also be invoked using underscore notation based on a gradle rule: https://github.com/srs/gradle-node-plugin/blob/master/docs/node.md
+build.dependsOn zip
+zip.dependsOn npm_build
+//The "npm build" command is used to execute the build script defined in the "scripts" section of the package.json file.
+//This script is typically used to compile, bundle, and optimize source code into distributable files that can be used to deploy a web application
 build.dependsOn npm_build
-
+// npmInstall task will execute "npm install" and installs all dependencies in package.json
 npm_build.dependsOn npmInstall
-
+//The "npm test" command is used to run the test script defined in the "scripts" section of the package.json file for a Node.js project
 npm_build.dependsOn npm_test
-
 npm_test.dependsOn npmInstall
 
-
+// resolving the issue related to downloading the node.js 
 repositories.whenObjectAdded {
     if (it instanceof IvyArtifactRepository) {
         metadataSources {
@@ -66,5 +42,3 @@ repositories.whenObjectAdded {
         }
     }
 }
-
-
