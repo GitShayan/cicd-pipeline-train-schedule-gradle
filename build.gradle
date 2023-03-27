@@ -34,7 +34,7 @@ npm_build.dependsOn npmInstall
 npm_build.dependsOn npm_test
 npm_test.dependsOn npmInstall
 
-// resolving the issue related to downloading the node.js 
+// resolving the issue related to downloading the node
 repositories.whenObjectAdded {
     if (it instanceof IvyArtifactRepository) {
         metadataSources {
